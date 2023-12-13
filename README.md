@@ -512,3 +512,10 @@ public class ViewAdapter extends FragmentStateAdapter {
 ```
 
 > Hasil Run :
+
+
+
+https://github.com/syifaaurellia/fragment_test/assets/115867244/40848674-e30a-4b2d-8c22-cf735496ae66
+
+
+## Selesai, Terima Kasih 
