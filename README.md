@@ -434,25 +434,25 @@ public class ViewAdapter extends FragmentStateAdapter {
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ActionFragment">
+    tools:context=".ComedyFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="279dp"
+        android:layout_height="1230dp"
+        android:src="@drawable/film2" />
+
     <TextView
-        android:id="@+id/action_sinopsis"
-        android:layout_width="wrap_content"
+        android:id="@+id/comedy_sinopsis"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Sinopsis film : Pada pembukaannya, Clint Barton sedang bersama keluarganya di pertanian, namun kebahagiaan mereka hancur ketika putrinya menghilang bersamaan dengan jentikan jari Thanos yang menyebabkan kehancuran besar, menghapus separuh kehidupan di alam semesta. Avengers yang tersisa, termasuk Nebula dan Tony Stark yang kembali ke Bumi, menyusun rencana untuk mencuri kembali Batu Keabadian dan membalikkan tindakan Thanos. Namun, setelah menemukan Thanos telah menghancurkan batu tersebut, mereka berkonfrontasi dengan musuh mereka.  Lima tahun kemudian, Scott Lang kembali dari alam kuantum dan memberi tahu Avengers bahwa mereka dapat menggunakan alam kuantum untuk melakukan perjalanan waktu dan mengambil kembali batu sebelum Thanos menggunakannya. Avengers menyusun rencana dan mengumpulkan kembali anggotanya, termasuk Thor yang kehilangan semangat. Dengan Stark, mereka berhasil mengembangkan mesin waktu dan melakukan perjalanan ke masa lalu untuk mengambil kembali batu-batu keabadian.  Menghadapi berbagai tantangan dan pengorbanan, termasuk kematian Natasha Romanoff, Avengers berhasil mendapatkan batu-batu tersebut. Dalam pertempuran akhir melawan Thanos, Stark mengorbankan dirinya sendiri untuk menggunakan Batu Keabadian dan menghancurkan musuh serta pasukannya. Setelah kemenangan, beberapa anggota Avengers memilih jalannya masing-masing, sementara Captain America memilih menjalani sisa hidupnya di masa lalu bersama Peggy Carter. Sebagai gantinya, ia menyerahkan perisai dan jubah Captain America kepada Sam Wilson."
+        android:text="Sinopsis film : Erwin, seorang lulusan universitas luar negeri, menghadapi dilema antara karir di Singapura dan mengelola toko keluarga karena ayahnya sakit. Erwin, yang awalnya terpaksa mengelola toko, memperbaiki hubungan dengan keluarga dan karyawan toko, menemukan solusi untuk meningkatkan sistem toko, dan membantu memenangkan kompetisi dekorasi. Meski berhasil, tanah toko diincar oleh pengembang properti lokal, dan setelah ayahnya menjualnya, Erwin bersama Yohan berjuang untuk mendapatkan kembali toko mereka.  Kisah berfokus pada pertumbuhan karakter dan hubungan keluarga, dengan Yohan yang mencoba memulai karir sebagai fotografer dan Ayu, istrinya, memiliki impian membuka toko roti. Erwin, setelah menolak promosi, bersama keluarga berjuang untuk mengatasi kegagalan mereka dan mendapatkan kembali toko mereka. Sebuah plot yang penuh emosi, di mana Erwin dan Yohan bersama-sama menemukan kebahagiaan dan memperbaiki hubungan mereka dengan keluarga, memberikan pelajaran tentang kesetiaan, pengorbanan, dan kekuatan keluarga.  Dengan pengungkapan skandal pengembang, kontrak pembelian tanah dibatalkan, dan Erwin memutuskan untuk meninggalkan toko kepada Yohan. Kisah ini mengakhiri dengan keluarga yang memperbaiki hubungan mereka, menunjukkan pertumbuhan karakter yang signifikan dan kekuatan pengorbanan demi keluarga."
         android:textAlignment="viewStart"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        android:textSize="16sp"
+        android:textSize="17sp"
         android:textStyle="bold" />
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="209dp"
-        android:layout_height="1260dp"
-        android:src="@drawable/film1" />
 </FrameLayout>
 ```
 
