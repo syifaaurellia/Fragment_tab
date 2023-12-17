@@ -399,92 +399,295 @@ public class ViewAdapter extends FragmentStateAdapter {
 - `fragment_action.xml` :
 ```
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ActionFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-
-    <TextView
-        android:id="@+id/action_sinopsis"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:text="Sinopsis film : Pada pembukaannya, Clint Barton sedang bersama keluarganya di pertanian, namun kebahagiaan mereka hancur ketika putrinya menghilang bersamaan dengan jentikan jari Thanos yang menyebabkan kehancuran besar, menghapus separuh kehidupan di alam semesta. Avengers yang tersisa, termasuk Nebula dan Tony Stark yang kembali ke Bumi, menyusun rencana untuk mencuri kembali Batu Keabadian dan membalikkan tindakan Thanos. Namun, setelah menemukan Thanos telah menghancurkan batu tersebut, mereka berkonfrontasi dengan musuh mereka.  Lima tahun kemudian, Scott Lang kembali dari alam kuantum dan memberi tahu Avengers bahwa mereka dapat menggunakan alam kuantum untuk melakukan perjalanan waktu dan mengambil kembali batu sebelum Thanos menggunakannya. Avengers menyusun rencana dan mengumpulkan kembali anggotanya, termasuk Thor yang kehilangan semangat. Dengan Stark, mereka berhasil mengembangkan mesin waktu dan melakukan perjalanan ke masa lalu untuk mengambil kembali batu-batu keabadian.  Menghadapi berbagai tantangan dan pengorbanan, termasuk kematian Natasha Romanoff, Avengers berhasil mendapatkan batu-batu tersebut. Dalam pertempuran akhir melawan Thanos, Stark mengorbankan dirinya sendiri untuk menggunakan Batu Keabadian dan menghancurkan musuh serta pasukannya. Setelah kemenangan, beberapa anggota Avengers memilih jalannya masing-masing, sementara Captain America memilih menjalani sisa hidupnya di masa lalu bersama Peggy Carter. Sebagai gantinya, ia menyerahkan perisai dan jubah Captain America kepada Sam Wilson."
-        android:textAlignment="viewStart"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        android:textSize="16sp"
-        android:textStyle="bold" />
+    android:layout_height="wrap_content"
+    android:padding="25dp">
 
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="209dp"
-        android:layout_height="1260dp"
-        android:src="@drawable/film1" />
-</FrameLayout>
+        android:id="@+id/imgMovie"
+        android:layout_width="150dp"
+        android:layout_height="170dp"
+        android:src="@drawable/film1"/>
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/imgMovie"
+        android:layout_marginStart="16dp"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:text="AVENGERS : END GAME"/>
+
+    <TextView
+        android:id="@+id/Deskription"
+        android:layout_toRightOf="@id/imgMovie"
+        android:layout_below="@id/tvTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:maxLines="5"
+        android:text="The story of the Avengers efforts to restore parts of the universe that were destroyed after the events of Infinity War. Using time travel technology, they attempt to steal the Infinity Stones to overcome the destruction caused by Thanos. An epic battle takes place, culminating in a great sacrifice and victory that changes the fate of the universe."/>
+    <ImageView
+        android:id="@+id/imgMovie2"
+        android:layout_width="150dp"
+        android:layout_height="170dp"
+        android:layout_marginTop="200dp"
+        android:src="@drawable/film4"/>
+
+    <TextView
+        android:id="@+id/tvTitle2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/imgMovie"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="200dp"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:text="MY NAME"/>
+
+    <TextView
+        android:id="@+id/Deskription2"
+        android:layout_toRightOf="@id/imgMovie"
+        android:layout_below="@id/tvTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="200dp"
+        android:maxLines="5"
+        android:text="The story of Yoon Ji-woo, a woman who disguises herself as a member of a criminal gang to investigate her father's death. On his journey to find the truth, Ji-woo becomes involved in conflicts and dark secrets that lead to a battle between justice and ambition in the criminal world. This story shows Ji-woo's struggle to understand his identity while avenging his family, bringing a sense of tension and intrigue to each episode."/>
+    <ImageView
+        android:id="@+id/imgMovie3"
+        android:layout_width="150dp"
+        android:layout_height="170dp"
+        android:layout_marginTop="400dp"
+        android:src="@drawable/film5"/>
+
+    <TextView
+        android:id="@+id/tvTitle3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/imgMovie"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="400dp"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:text="SPIDERMAN : NO WAY HOME"/>
+
+    <TextView
+        android:id="@+id/Deskription3"
+        android:layout_toRightOf="@id/imgMovie"
+        android:layout_below="@id/tvTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="420dp"
+        android:maxLines="5"
+        android:text="Peter Parker tries to fix the mess after his Spider-Man identity is revealed and his personal life is threatened. Peter enlists the help of Doctor Strange to use magic gone wrong, opening the multiverse and bringing forth a version of Spider-Man from a parallel reality. Along with the other Spider-Men, Peter confronts villains from the past and faces serious consequences in their efforts to right those wrongs."
+        />
+</RelativeLayout>
 ```
 
 - `fragment_comedy.xml`
 ```
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ComedyFragment">
-
-    <!-- TODO: Update blank fragment layout -->
+    android:layout_height="wrap_content"
+    android:padding="25dp">
 
     <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="279dp"
-        android:layout_height="1230dp"
-        android:src="@drawable/film2" />
+        android:id="@+id/imgMovie"
+        android:layout_width="150dp"
+        android:layout_height="170dp"
+        android:src="@drawable/film2"/>
 
     <TextView
-        android:id="@+id/comedy_sinopsis"
+        android:id="@+id/tvTitle"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Sinopsis film : Erwin, seorang lulusan universitas luar negeri, menghadapi dilema antara karir di Singapura dan mengelola toko keluarga karena ayahnya sakit. Erwin, yang awalnya terpaksa mengelola toko, memperbaiki hubungan dengan keluarga dan karyawan toko, menemukan solusi untuk meningkatkan sistem toko, dan membantu memenangkan kompetisi dekorasi. Meski berhasil, tanah toko diincar oleh pengembang properti lokal, dan setelah ayahnya menjualnya, Erwin bersama Yohan berjuang untuk mendapatkan kembali toko mereka.  Kisah berfokus pada pertumbuhan karakter dan hubungan keluarga, dengan Yohan yang mencoba memulai karir sebagai fotografer dan Ayu, istrinya, memiliki impian membuka toko roti. Erwin, setelah menolak promosi, bersama keluarga berjuang untuk mengatasi kegagalan mereka dan mendapatkan kembali toko mereka. Sebuah plot yang penuh emosi, di mana Erwin dan Yohan bersama-sama menemukan kebahagiaan dan memperbaiki hubungan mereka dengan keluarga, memberikan pelajaran tentang kesetiaan, pengorbanan, dan kekuatan keluarga.  Dengan pengungkapan skandal pengembang, kontrak pembelian tanah dibatalkan, dan Erwin memutuskan untuk meninggalkan toko kepada Yohan. Kisah ini mengakhiri dengan keluarga yang memperbaiki hubungan mereka, menunjukkan pertumbuhan karakter yang signifikan dan kekuatan pengorbanan demi keluarga."
-        android:textAlignment="viewStart"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        android:textSize="17sp"
-        android:textStyle="bold" />
-</FrameLayout>
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/imgMovie"
+        android:layout_marginStart="16dp"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:text="CEK TOKO SEBELAH"/>
+
+    <TextView
+        android:id="@+id/Deskription"
+        android:layout_toRightOf="@id/imgMovie"
+        android:layout_below="@id/tvTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:maxLines="5"
+        android:text="The story tells about Subrata's family's life which is disrupted when his grocery store receives a purchase offer from a large company. Director Ernest Prakasa presents typical comedic moments in Subrata and his brother's efforts to face economic challenges and changes in the surrounding environment. This film depicts an entertaining family relationship while inserting messages about traditional and modern values in business and everyday life."
+        />
+    <ImageView
+        android:id="@+id/imgMovie2"
+        android:layout_width="150dp"
+        android:layout_height="170dp"
+        android:layout_marginTop="200dp"
+        android:src="@drawable/film6"/>
+
+    <TextView
+        android:id="@+id/tvTitle2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/imgMovie"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="200dp"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:text="FRIENDZONE"/>
+
+    <TextView
+        android:id="@+id/Deskription2"
+        android:layout_toRightOf="@id/imgMovie"
+        android:layout_below="@id/tvTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="200dp"
+        android:maxLines="5"
+        android:text="The story centers on old friends, Palm and Gink, who love each other but are afraid to express their feelings. The two had a close relationship, but when Palm confessed her feelings, Gink stated that she only saw him as a friend. The film presents Palm's emotional journey in maintaining their friendship, touching on themes of unrequited love and the complexity of sibling relationships."
+        />
+    <ImageView
+        android:id="@+id/imgMovie3"
+        android:layout_width="150dp"
+        android:layout_height="170dp"
+        android:layout_marginTop="400dp"
+        android:src="@drawable/film7"/>
+
+    <TextView
+        android:id="@+id/tvTitle3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/imgMovie"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="400dp"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:text="REPLY 1988"/>
+
+    <TextView
+        android:id="@+id/Deskription3"
+        android:layout_toRightOf="@id/imgMovie"
+        android:layout_below="@id/tvTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="420dp"
+        android:maxLines="5"
+        android:text="Tells the story of family and friendship in a neighborhood in 1988 in Seoul. The story focuses on the Sung family and a group of teenagers who grow up together, creating unforgettable memories in their daily lives. Through a story of love and friendship, Reply 1988 depicts the warmth and nostalgia of youth, building strong bonds amidst the dynamics of urban life in that era." />
+</RelativeLayout>
 ```
 
-- `fragment_romance.xml` :
+- `fragment_romance.xml`
 ```
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".RomanceFragment">
-
-    <!-- TODO: Update blank fragment layout -->
+    android:layout_height="wrap_content"
+    android:padding="25dp">
 
     <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="222dp"
-        android:layout_height="1255dp"
-        android:src="@drawable/film3" />
+        android:id="@+id/imgMovie"
+        android:layout_width="150dp"
+        android:layout_height="170dp"
+        android:src="@drawable/film3"/>
 
     <TextView
-        android:id="@+id/romance_sinopsis"
-        android:layout_width="wrap_content"
+        android:id="@+id/tvTitle"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Sinopsis film :  &quot;20th Century Girl&quot; mengisahkan Na Bo-ra, seorang siswi yang bersumpah untuk mengikuti Baek Hyun-jin demi sahabatnya yang sakit. Namun, Bo-ra malah jatuh cinta pada Poong Woon-ho, sahabat Hyun-jin. Dalam kebingungan cinta segitiga, Bo-ra menyembunyikan perasaannya agar tidak melukai sahabatnya yang ternyata mencintai Woon-ho. Ketika Woon-ho kembali ke Selandia Baru, Bo-ra dan Yeon-du tiba di stasiun kereta pada saat yang tepat, memungkinkan mereka mengakui perasaan mereka sebelum berpisah. Namun, Woon-ho tiba-tiba menghilang dari kehidupan Bo-ra, meninggalkan hatinya yang hancur.  Seiring waktu, Bo-ra masuk universitas dan menjalani kehidupan dewasa. Pada tahun 2019, ia menerima undangan pameran seni dari Joseph, adik laki-laki Woon-ho. Di sini, Bo-ra mengetahui bahwa Woon-ho telah meninggal dalam kecelakaan bertahun-tahun yang lalu. Joseph bersyukur pada Bo-ra karena mengenang saudaranya dan mengungkapkan bahwa momen terbahagia Woon-ho adalah bersama Bo-ra. Saat melihat video yang dibuat Woon-ho, Bo-ra merenung tentang kenangan indah yang mereka bagikan.  Dengan latar tahun 1999 dan 2019, &quot;20th Century Girl&quot; membawa penonton dalam perjalanan emosional Bo-ra yang penuh kebingungan cinta, pertemanan, dan kehilangan. Film ini menggambarkan kompleksitas hubungan manusia seiring waktu, dengan kisah yang menyentuh hati dan meninggalkan kesan mendalam."
-        android:textAlignment="viewStart"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        android:textSize="17sp"
-        android:textStyle="bold" />
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_toRightOf="@id/imgMovie"
+        android:text="20TH CENTURY GIRL"
+        android:textColor="@color/black"
+        android:textSize="16sp" />
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/Deskription"
+        android:layout_toRightOf="@id/imgMovie"
+        android:layout_below="@id/tvTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:maxLines="5"
+        android:text="Tells the story of Na Bo-ra, a student who vows to follow Baek Hyun-jin for the sake of her sick friend. However, Bo-ra falls in love with Poong Woon-ho, Hyun-jin's best friend. In the confusion of the love triangle, Bo-ra hides her feelings so as not to hurt her best friend who turns out to love Woon-ho. When Woon-ho returns to New Zealand, Bo-ra and Yeon-du arrive at the train station at the right time, allowing them to confess their feelings before going their separate ways. However, Woon-ho suddenly disappears from Bo-ra's life, leaving her heart broken.
+
+Over time, Bo-ra enters university and lives an adult life. In 2019, he received an art exhibition invitation from Joseph, Woon-ho's younger brother. Here, Bo-ra learns that Woon-ho died in an accident years ago. Joseph thanks Bo-ra for remembering his brother and reveals that Woon-ho's happiest moments were with Bo-ra. While watching the video Woon-ho made, Bo-ra reflects on the happy memories they shared.
+
+Set in 1999 and 2019, it takes the audience on Bo-ra's emotional journey full of confusion, love, friendship and loss. This film depicts the complexity of human relationships over time, with a story that touches the heart and leaves a deep impression." />
+
+    <ImageView
+        android:id="@+id/imgMovie2"
+        android:layout_width="150dp"
+        android:layout_height="170dp"
+        android:layout_marginTop="200dp"
+        android:src="@drawable/film8"/>
+
+    <TextView
+        android:id="@+id/tvTitle2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/imgMovie"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="200dp"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:text="CHEER UP"/>
+
+    <TextView
+        android:id="@+id/Deskription2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvTitle"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="211dp"
+        android:layout_toRightOf="@id/imgMovie"
+        android:maxLines="5"
+        android:text="Tells the story of a group of high school students who band together to form a cheerleading team at their school, trying to overcome academic pressure and teenage problems. With the struggles, conflicts, and friendships that develop among the team members, they learn to overcome life's difficulties and find strength in their unity. This story presents the dynamics of school life full of enthusiasm, with a touch of comedy and warmth in experiencing adolescence." />
+
+    <ImageView
+        android:id="@+id/imgMovie3"
+        android:layout_width="150dp"
+        android:layout_height="175dp"
+        android:layout_marginTop="400dp"
+        android:src="@drawable/film9"/>
+
+    <TextView
+        android:id="@+id/tvTitle3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/imgMovie"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="400dp"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:text="HIDDEN LOVE"/>
+
+    <TextView
+        android:id="@+id/Deskription3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvTitle"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="409dp"
+        android:layout_toRightOf="@id/imgMovie"
+        android:maxLines="5"
+        android:text="The storyline is about the complicated relationships among a group of close friends who grow up together and face various life trials. With secrets and conflicts emerging, they must struggle to understand and accept each other, while going on a journey to find love and identity. Through a story full of intrigue and emotion, Hidden Love reveals hidden layers of relationships and shows the journey towards maturity and understanding." />
+</RelativeLayout>
 ```
 => Pada directory `drawable` kita bisa tambahkan gambar untuk pict dari film yang ingin kita tampilkan, dan jangan lupa untuk menambahkan icon `baseline_more_vert_24.xml` dengan cara klik kanan pada `drawable` lalu klik New, setelah itu kita pilih dan klik Vector Asset. Setelah itu kita klik clip art lalu kita pilih icon nya, jika sudah ketemu kita klik OK lalu kita klik next
 
@@ -515,7 +718,11 @@ public class ViewAdapter extends FragmentStateAdapter {
 
 
 
-https://github.com/syifaaurellia/fragment_test/assets/115867244/40848674-e30a-4b2d-8c22-cf735496ae66
+
+
+https://github.com/syifaaurellia/fragment_test/assets/115867244/f2256ced-d878-4c9f-ac06-1cff71aadddd
+
+
 
 
 ## Selesai, Terima Kasih 
