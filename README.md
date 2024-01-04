@@ -12,6 +12,7 @@ Mata Kuliah : Pemrograman Mobile 1
 ## Tugas
 ![tugas](https://github.com/syifaaurellia/fragment_test/assets/115867244/fb861b7f-9579-47f3-a830-8cc7d896afbf)
 
+> **Pada tugas kali ini kita juga akan menambahkan video di setiap film**
 
 
 ## Fill in All The Code in This Project :
@@ -22,11 +23,11 @@ plugins {
 }
 
 android {
-    namespace = "com.tabexperiment"
+    namespace = "com.cipaapps"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.tabexperiment"
+        applicationId = "com.cipaapps"
         minSdk = 21
         targetSdk = 33
         versionCode = 1
@@ -57,20 +58,34 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     implementation("androidx.fragment:fragment:$fragment_version")
+    implementation("com.google.android.exoplayer:exoplayer-core:2.15.1")
+    implementation("com.google.android.exoplayer:exoplayer-ui:2.15.1")
+
 }
 ```
 - Setelah itu klik `Sync now`
+- 
 
-> 2. ***java***
-
-=> `MainActivity.java`
+> 2. ***AndroidManifest.xml***
 ```
-package com.tabexperiment;
+<activity android:name=".VideoPlayerActivity" />
+```
 
+> 3. ***java***
+
+=> `FragmentActivity.java`
+```
+package com.cipaapps;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
@@ -78,19 +93,19 @@ import com.google.android.material.tabs.TabLayout;
 
 import java.util.Objects;
 
-public class MainActivity extends AppCompatActivity {
+public class FragmentActivity extends AppCompatActivity {
 
     TabLayout tabLayout;
     ViewPager2 viewPager2;
     ViewAdapter adapter;
 
-    @SuppressLint("NewApi")
+    @SuppressLint({"NewApi", "MissingInflatedId"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_movie);
 
-        Objects.requireNonNull(getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(getColor(R.color.hijautua)));
+        Objects.requireNonNull(getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(getColor(R.color.cream)));
 
         tabLayout = findViewById(R.id.tab);
         viewPager2 = findViewById(R.id.view);
@@ -114,6 +129,34 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        class Halaman extends FragmentStatePagerAdapter {
+            Context context;
+            int jumlah_tab;
+
+            Halaman(Context context, FragmentManager fm, int jml_tab)
+            {
+                super(fm);
+                this.context=context;
+                this.jumlah_tab=jml_tab;
+            }
+
+            @NonNull
+            @Override
+            public Fragment getItem(int posisition){
+                switch (posisition){
+                    case 0:return new ActionFragment();
+                    case 1:return new ComedyFragment();
+                    case 2:return new RomanceFragment();
+                }
+                return null;
+            }
+
+            @Override
+            public int getCount(){
+                return jumlah_tab;
+            }
+        }
+
         viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
@@ -121,37 +164,77 @@ public class MainActivity extends AppCompatActivity {
                 tabLayout.getTabAt(position).select();
             }
         });
+
     }
 }
 ```
+
+
+=> Untuk menambahkan video pada Android Studio disini saya memakai `res/raw/video_kita.mp4`, yaitu caranya yang pertama kita klik kanan terlebih dahulu di bagian `res` lalu kita pilih dan klik `new` lalu pilih dan klik bagian `Android Resource Directory`, setelah itu ada bagian    `Resource type` kita pilih `raw` lalu kita klik OK. Lalu setelah itu langsung saja kita copy paste video yang kita ingin masukkan ke dalam project kita ke dalam `raw`.
 
 => Membuat file fragment dengan cara klik kanan pada `MainActivity.java` lalu pilih dan klik fragment, setelah itu kita pilih dan klik fragment (Blank), setelah itu kita beri nama `ActionFragment`, `ComedyFragment`, `RomanceFragment`. Untuk file fragment sudah sekaligus dengan file layout xml nya (code berada pada bagian res `layout`)
 
 - `ActionFragment.java` :
 ```
-package com.tabexperiment;
+package com.cipaapps;
 
+import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
 
 
 public class ActionFragment extends Fragment {
+
+    private static final String TAG = "ActionFragment";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         setHasOptionsMenu(true);
-        return inflater.inflate(R.layout.fragment_action, container, false);
+        View view = inflater.inflate(R.layout.fragment_action, container, false);
+
+        // Find the button by its ID
+        Button avengerButton = view.findViewById(R.id.avenger);
+        Button myNameButton = view.findViewById(R.id.myname);
+        Button spidermanButton = view.findViewById(R.id.spiderman);
+
+        // Set click listener for each button
+        avengerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "Avenger button clicked");
+                playVideo(R.raw.avenger);
+            }
+        });
+
+        myNameButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "MyName button clicked");
+                playVideo(R.raw.myname);
+            }
+        });
+
+        spidermanButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "Spiderman button clicked");
+                playVideo(R.raw.spiderman);
+            }
+        });
+
+        return view;
     }
 
     @Override
@@ -167,32 +250,76 @@ public class ActionFragment extends Fragment {
         }
         return true;
     }
+
+    private void playVideo(int videoResource) {
+        String videoPath = "android.resource://" + getActivity().getPackageName() + "/" + videoResource;
+        Intent intent = new Intent(getActivity(), VideoPlayerActivity.class);
+        intent.putExtra("VIDEO_PATH", videoPath);
+        startActivity(intent);
+    }
 }
 ```
 - `ComedyFragment.java` :
 ```
-package com.tabexperiment;
+package com.cipaapps;
 
+import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.fragment.app.Fragment;
+
+
 public class ComedyFragment extends Fragment {
+
+    private static final String TAG = "ComedyFragment";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         setHasOptionsMenu(true);
-        return inflater.inflate(R.layout.fragment_comedy, container, false);
+        View view = inflater.inflate(R.layout.fragment_comedy, container, false);
+
+        // Find the button by its ID
+        Button cektokosebelahButton = view.findViewById(R.id.cektokosebelah);
+        Button friendzoneButton = view.findViewById(R.id.friendzone);
+        Button hospitalplaylistButton = view.findViewById(R.id.hospitalplaylist);
+
+        // Set click listener for each button
+        cektokosebelahButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "Cektokosebelah2 button clicked");
+                playVideo(R.raw.cektokosebelah2);
+            }
+        });
+
+        friendzoneButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "Friendzone button clicked");
+                playVideo(R.raw.friendzone);
+            }
+        });
+
+        hospitalplaylistButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "HospitalPlaylist button clicked");
+                playVideo(R.raw.hospitalplaylist);
+            }
+        });
+
+        return view;
     }
 
     @Override
@@ -208,35 +335,81 @@ public class ComedyFragment extends Fragment {
         }
         return true;
     }
+
+    private void playVideo(int videoResource) {
+        String videoPath = "android.resource://" + getActivity().getPackageName() + "/" + videoResource;
+        Intent intent = new Intent(getActivity(), VideoPlayerActivity.class);
+        intent.putExtra("VIDEO_PATH", videoPath);
+        startActivity(intent);
+    }
 }
 ```
 
 - `RomanceFragment.java` :
 ```
-package com.tabexperiment;
+package com.cipaapps;
 
+import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
+
+import com.cipaapps.VideoPlayerActivity;
 
 
 public class RomanceFragment extends Fragment {
+
+    private static final String TAG = "RomanceFragment";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         setHasOptionsMenu(true);
-        return inflater.inflate(R.layout.fragment_romance, container, false);
+        View view = inflater.inflate(R.layout.fragment_romance, container, false);
+
+        // Find the button by its ID
+        Button centurygirlButton = view.findViewById(R.id.centurygirl);
+        Button cheerupButton = view.findViewById(R.id.cheerup);
+        Button hiddenloveButton = view.findViewById(R.id.hiddenlove);
+
+        // Set click listener for each button
+        centurygirlButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "Centurygirl button clicked");
+                playVideo(R.raw.centurygirl);
+            }
+        });
+
+        cheerupButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "Cheerup button clicked");
+                playVideo(R.raw.cheerup);
+            }
+        });
+
+        hiddenloveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "Hiddenlove button clicked");
+                playVideo(R.raw.hiddenlove);
+            }
+        });
+
+        return view;
     }
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_tab, menu);
@@ -249,6 +422,13 @@ public class RomanceFragment extends Fragment {
                     .show();
         }
         return true;
+    }
+
+    private void playVideo(int videoResource) {
+        String videoPath = "android.resource://" + getActivity().getPackageName() + "/" + videoResource;
+        Intent intent = new Intent(getActivity(), VideoPlayerActivity.class);
+        intent.putExtra("VIDEO_PATH", videoPath);
+        startActivity(intent);
     }
 }
 ```
@@ -289,11 +469,125 @@ public class ViewAdapter extends FragmentStateAdapter {
 }
 ```
 
-> 3. ***res***
+=> Setelah itu membuat java classs untuk memutar video dengan nama `VideoPlayerActivity.java`, yang berisi code :
+```
+package com.cipaapps;
+
+import android.content.pm.ActivityInfo;
+import android.net.Uri;
+import android.os.Bundle;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.MediaController;
+import android.widget.RelativeLayout;
+import android.widget.VideoView;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
+
+public class VideoPlayerActivity extends AppCompatActivity {
+
+    private VideoView videoView; // Deklarasi VideoView sebagai variabel global
+    private int originalOrientation;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_video_player);
+
+        // Get the video URI from the intent
+        String videoPath = getIntent().getStringExtra("VIDEO_PATH");
+        Uri uri = Uri.parse(videoPath);
+
+        // Set up VideoView
+        videoView = findViewById(R.id.videoView); // Inisialisasi variabel videoView
+        videoView.setVideoURI(uri);
+
+        // Set up MediaController
+        MediaController mediaController = new MediaController(this);
+        mediaController.setAnchorView(videoView);
+        videoView.setMediaController(mediaController);
+
+        // Start playing the video
+        videoView.start();
+
+        // Get the original orientation
+        originalOrientation = getResources().getConfiguration().orientation;
+
+        // Adjust video layout based on the original orientation
+        adjustVideoLayout(originalOrientation);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Detect orientation changes and adjust VideoView layout
+        int currentOrientation = getResources().getConfiguration().orientation;
+        if (currentOrientation != originalOrientation) {
+            adjustVideoLayout(currentOrientation);
+            originalOrientation = currentOrientation;
+        }
+    }
+
+    private void adjustVideoLayout(int orientation) {
+        if (orientation == ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE ||
+                orientation == ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE) {
+            // Landscape mode
+            setFullscreen(true);
+        } else {
+            // Portrait or other orientations
+            setFullscreen(false);
+        }
+    }
+
+    private void setFullscreen(boolean fullscreen) {
+        if (fullscreen) {
+            // Hide action bar
+            if (getSupportActionBar() != null) {
+                getSupportActionBar().hide();
+            }
+
+            // Set VideoView layout parameters for fullscreen
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT
+            );
+            params.addRule(RelativeLayout.CENTER_IN_PARENT);
+            videoView.setLayoutParams(params);
+
+            // Hide navigation bar and status bar
+            getWindow().getDecorView().setSystemUiVisibility(
+                    View.SYSTEM_UI_FLAG_FULLSCREEN |
+                            View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
+                            View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+        } else {
+            // Show action bar
+            if (getSupportActionBar() != null) {
+                getSupportActionBar().show();
+            }
+
+            // Set VideoView layout parameters for normal mode
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+            );
+            params.addRule(RelativeLayout.CENTER_IN_PARENT);
+            videoView.setLayoutParams(params);
+
+            // Show navigation bar and status bar
+            getWindow().getDecorView().setSystemUiVisibility(
+                    View.SYSTEM_UI_FLAG_VISIBLE);
+        }
+    }
+}
+```
+
+
+> 4. ***res***
 
 => `values`
 
-- `Colors.xml` :
+- `colors.xml` :
 ```
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
@@ -304,16 +598,68 @@ public class ViewAdapter extends FragmentStateAdapter {
     <color name="colorPrimary">#3F5185</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="birumuda">#ABCBFA</color>
+    <color name="birumuda">#95AFD5</color>
     <color name="salem">#F8C6E6</color>
     <color name ="purple">#E3A2ED</color>
-    <color name="hijau">#92A676</color>
-    <color name="biru">#8FC2EA</color>
+    <color name="hijau">#87986D</color>
+    <color name="biru">#788A99</color>
     <color name="hijaumuda">#C2E69C</color>
     <color name="kuning">#FFEB3B</color>
     <color name="orange">#FF9800</color>
     <color name="cream">#E6C18A</color>
     <color name="hijautua">#3F4A2F</color>
+    <color name="hijausoft">#9FC17C</color>
+    <color name="coklat">#574545</color>
+    <color name="choco">#A69E9E</color>
+</resources>
+```
+
+=> `strings.xml` :
+```
+<resources>
+    <string name="app_name">SerendipityApps</string>
+    <string name="Hello_World">Hello World!!</string>
+
+    <string name="button_main">Send</string>
+    <string name="editText_main">Enter Your Message Here</string>
+    <string name="text_header">Message Received</string>
+    <string name="buttton_second">Reply</string>
+    <string name="editText_second">Enter Your Reply Here</string>
+    <string name="text_header_reply">Reply Received</string>
+
+    <string name="button_label_toast">Toast</string>
+    <string name="button_label_count">Count</string>
+    <string name="count_initial_value">1</string>
+    <string name="toast_massage">Hello Toast!</string>
+    <string name="button_label_restart">Restart</string>
+    <string name="enter_fibonacci_limit">Masukkan Angka Limit</string>
+
+    <string name="article_title"> Kasus Sianida</string>
+    <string name="article_subtitle">ICE COLD!</string>
+
+    <string name="article_text"> Film dokumenter Ice Cold: Murder, Coffee and Jessica Wongso memaparkan pertanyaan tak terjawab tentang persidangan yang dilalui Jessica Wongso. Dengan menyajikan perspektif baru, film ini hadir bertahun-tahun setelah kematian sahabat Jessica, Wayan Mirna Salihin.
+
+
+Film ini menggambarkan bagaimana Jessica yang mengajak teman-temannya, termasuk Mirna, untuk bertemu setelah sekian lama tak berjumpa. Pertemuan di salah satu kafe di mal ibu kota tersebut pun berlangsung lancar, sebelum akhirnya Mirna pingsan sesaat setelah meminum kopi yang sebelumnya dipesan Jessica.Dokumenter ini turut menyajikan rekaman CCTV pada waktu kejadian, berbagai footage berita saat persidangan berlangsung, hingga wawancara eksklusif dengan beberapa sumber, termasuk Jessica Wongso.
+
+
+Persidangan atas dugaan pembunuhan Mirna Salihin digelar lima bulan setelah kematiannya. Sidang tersebut melalui 32 kali persidangan dengan menghadirkan puluhan saksi di pengadilan. Hasilnya, Jessica Wongso divonis bersalah atas kematian Mirna dan dijatuhi hukuman 20 tahun penjara.
+Kasus yang berjalan cukup lama tersebut menyita banyak perhatian dari masyarakat Indonesia. Musababnya, banyak misteri tak terjawab selama rangkaian persidangan yang panjang tersebut. Salah satunya adalah mengenai akses untuk mendapatkan bubuk sianida yang tidak bisa didapatkan oleh orang sembarangan. Selain itu, motif Jessica di balik pembunuhan tersebut pun belum menemukan jawabannya.
+
+
+Film dokumenter buatan Netflix ini menyoroti rangkaian persidangan yang saat itu menjadi sidang pertama yang disiarkan secara langsung di berbagai stasiun televisi Indonesia. Selain itu, kasus ini juga diliput secara intens oleh media massa, baik nasional maupun internasional.Tak hanya itu, pihak rumah produksi Beach House Pictures juga berhasil mendapatkan akses untuk mewawancarai Jessica Wongso secara langsung dari balik tahanan. Dalam video trailer yang diluncurkannya, ditampilkan juga sejumlah wawancara eksklusif yang dilakukan dengan beberapa narasumber. Mulai dari ayah dan saudara kembar  Mirna Salihin, pengacara Jessica Wongso, jurnalis yang mendalami kasus tersebut, hingga bagaimana saat itu kasus ini begitu ramai diberitakan oleh media massa Indonesia dan internasional.</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>
+```
+
+=> `dimens.xml` :
+```
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="padding_regular">10dp</dimen>
+    <dimen name="line_spacing">5sp</dimen>
 </resources>
 ```
 
@@ -323,18 +669,24 @@ public class ViewAdapter extends FragmentStateAdapter {
 ```
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
+    <style name="SplashScreen" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:windowBackground">@drawable/splashscreenapp</item>
+        <item name="android:statusBarColor">?attr/colorOnPrimary</item>
+    </style>
+
+    <!-- Base application theme. -->
     <style name="Base.Theme.TabExperiment" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryVariant">@color/biru</item>
+        <item name="colorPrimaryVariant">@color/cream</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/hijau</item>
         <item name="colorSecondaryVariant">@color/hijaumuda</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">@color/cream</item>
-        <item name="android:navigationBarColor">@color/cream</item>
+        <item name="android:statusBarColor">@color/choco</item>
+        <item name="android:navigationBarColor">@color/choco</item>
         <!-- Customize your light theme here. -->
     </style>
 
