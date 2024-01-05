@@ -12,7 +12,7 @@ Mata Kuliah : Pemrograman Mobile 1
 ## Tugas
 ![tugas](https://github.com/syifaaurellia/fragment_test/assets/115867244/fb861b7f-9579-47f3-a830-8cc7d896afbf)
 
-> **Pada tugas kali ini kita juga akan menambahkan video di setiap film**
+> **Pada tugas kali ini saya juga akan menambahkan video di setiap film**
 
 
 ## Fill in All The Code in This Project :
@@ -58,20 +58,19 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     implementation("androidx.fragment:fragment:$fragment_version")
-    implementation("com.google.android.exoplayer:exoplayer-core:2.15.1")
-    implementation("com.google.android.exoplayer:exoplayer-ui:2.15.1")
-
 }
 ```
 - Setelah itu klik `Sync now`
-- 
 
 > 2. ***AndroidManifest.xml***
+- Lengkapi code ini pada `AndroidManifest.xml` yang sudah berisikan dengan code-code di project sebelumnya.
 ```
 <activity android:name=".VideoPlayerActivity" />
 ```
 
 > 3. ***java***
+
+- Untuk package name bisa di sesuaikan dengan package name project kita masing-masing, disini saya melanjutkan dari package name project sebelumnya.
 
 => `FragmentActivity.java`
 ```
@@ -168,10 +167,6 @@ public class FragmentActivity extends AppCompatActivity {
     }
 }
 ```
-
-
-=> Untuk menambahkan video pada Android Studio disini saya memakai `res/raw/video_kita.mp4`, yaitu caranya yang pertama kita klik kanan terlebih dahulu di bagian `res` lalu kita pilih dan klik `new` lalu pilih dan klik bagian `Android Resource Directory`, setelah itu ada bagian    `Resource type` kita pilih `raw` lalu kita klik OK. Lalu setelah itu langsung saja kita copy paste video yang kita ingin masukkan ke dalam project kita ke dalam `raw`.
-
 => Membuat file fragment dengan cara klik kanan pada `MainActivity.java` lalu pilih dan klik fragment, setelah itu kita pilih dan klik fragment (Blank), setelah itu kita beri nama `ActionFragment`, `ComedyFragment`, `RomanceFragment`. Untuk file fragment sudah sekaligus dengan file layout xml nya (code berada pada bagian res `layout`)
 
 - `ActionFragment.java` :
@@ -435,7 +430,7 @@ public class RomanceFragment extends Fragment {
 
 => Lalu buat java class dengan nama `ViewAdapter.java`, yang berisi code :
 ```
-package com.tabexperiment;
+package com.cipaapps;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -469,18 +464,22 @@ public class ViewAdapter extends FragmentStateAdapter {
 }
 ```
 
-=> Setelah itu membuat java classs untuk memutar video dengan nama `VideoPlayerActivity.java`, yang berisi code :
+=> Setelah itu membuat java class untuk memutar video dengan nama `VideoPlayerActivity.java`, yang berisi code :
 ```
 package com.cipaapps;
 
 import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.MediaController;
 import android.widget.RelativeLayout;
 import android.widget.VideoView;
+
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -578,6 +577,22 @@ public class VideoPlayerActivity extends AppCompatActivity {
             getWindow().getDecorView().setSystemUiVisibility(
                     View.SYSTEM_UI_FLAG_VISIBLE);
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_video_player, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.action_back) {
+            // Tambahkan logika untuk kembali ke halaman sebelumnya atau finish activity
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
 ```
@@ -694,9 +709,11 @@ Film dokumenter buatan Netflix ini menyoroti rangkaian persidangan yang saat itu
 </resources>
 ```
 
+=> Untuk menambahkan video pada Android Studio disini saya memakai `res/raw/video_kita.mp4`, yaitu caranya yang pertama kita klik kanan terlebih dahulu di bagian `res` lalu kita pilih dan klik `new` lalu pilih dan klik bagian `Android Resource Directory`, setelah itu ada bagian    `Resource type` kita pilih `raw` lalu kita klik OK. Lalu setelah itu langsung saja kita copy paste video yang kita ingin masukkan ke dalam project kita ke dalam `raw`.
+
 => `layout`
 
-- `activity_main.xml` :
+- `activity_movie.xml` :
 ```
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -705,14 +722,14 @@ Film dokumenter buatan Netflix ini menyoroti rangkaian persidangan yang saat itu
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".MainActivity">
+    tools:context=".FragmentActivity">
 
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/hijau"
+        android:background="@color/choco"
         app:tabSelectedTextColor="@color/white"
         app:tabIndicatorColor="@color/white"
         tools:layout_editor_absoluteX="1dp"
@@ -748,14 +765,30 @@ Film dokumenter buatan Netflix ini menyoroti rangkaian persidangan yang saat itu
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 ```
+
+- `activity_video_player.xml` :
+```
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <VideoView
+        android:id="@+id/videoView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</RelativeLayout>
+```
+
 - `fragment_action.xml` :
 ```
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="25dp">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="25dp"
+    tools:context=".ActionFragment">
 
     <ImageView
         android:id="@+id/imgMovie"
@@ -780,9 +813,24 @@ Film dokumenter buatan Netflix ini menyoroti rangkaian persidangan yang saat itu
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="10dp"
         android:maxLines="5"
+        android:textColor="@color/black"
         android:text="The story of the Avengers efforts to restore parts of the universe that were destroyed after the events of Infinity War. Using time travel technology, they attempt to steal the Infinity Stones to overcome the destruction caused by Thanos. An epic battle takes place, culminating in a great sacrifice and victory that changes the fate of the universe."/>
+
+
+    <Button
+        android:id="@+id/avenger"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/imgMovie"
+        android:layout_below="@id/Deskription"
+        android:text="Watch Trailer Now"
+        android:onClick="playAvengerTrailer"/>
+
+
     <ImageView
         android:id="@+id/imgMovie2"
         android:layout_width="150dp"
@@ -794,7 +842,7 @@ Film dokumenter buatan Netflix ini menyoroti rangkaian persidangan yang saat itu
         android:id="@+id/tvTitle2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/imgMovie"
+        android:layout_toRightOf="@id/imgMovie2"
         android:layout_marginStart="16dp"
         android:layout_marginTop="200dp"
         android:textSize="16sp"
@@ -803,14 +851,27 @@ Film dokumenter buatan Netflix ini menyoroti rangkaian persidangan yang saat itu
 
     <TextView
         android:id="@+id/Deskription2"
-        android:layout_toRightOf="@id/imgMovie"
+        android:layout_toRightOf="@id/imgMovie2"
         android:layout_below="@id/tvTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="210dp"
         android:maxLines="5"
+        android:textColor="@color/black"
         android:text="The story of Yoon Ji-woo, a woman who disguises herself as a member of a criminal gang to investigate her father's death. On his journey to find the truth, Ji-woo becomes involved in conflicts and dark secrets that lead to a battle between justice and ambition in the criminal world. This story shows Ji-woo's struggle to understand his identity while avenging his family, bringing a sense of tension and intrigue to each episode."/>
+
+    <Button
+        android:id="@+id/myname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/imgMovie2"
+        android:layout_below="@id/Deskription2"
+        android:text="Watch Trailer Now"
+        android:onClick="playMyNameTrailer"/>
+
     <ImageView
         android:id="@+id/imgMovie3"
         android:layout_width="150dp"
@@ -822,7 +883,7 @@ Film dokumenter buatan Netflix ini menyoroti rangkaian persidangan yang saat itu
         android:id="@+id/tvTitle3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/imgMovie"
+        android:layout_toRightOf="@id/imgMovie3"
         android:layout_marginStart="16dp"
         android:layout_marginTop="400dp"
         android:textSize="16sp"
@@ -831,15 +892,27 @@ Film dokumenter buatan Netflix ini menyoroti rangkaian persidangan yang saat itu
 
     <TextView
         android:id="@+id/Deskription3"
-        android:layout_toRightOf="@id/imgMovie"
+        android:layout_toRightOf="@id/imgMovie3"
         android:layout_below="@id/tvTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="420dp"
         android:maxLines="5"
+        android:textColor="@color/black"
         android:text="Peter Parker tries to fix the mess after his Spider-Man identity is revealed and his personal life is threatened. Peter enlists the help of Doctor Strange to use magic gone wrong, opening the multiverse and bringing forth a version of Spider-Man from a parallel reality. Along with the other Spider-Men, Peter confronts villains from the past and faces serious consequences in their efforts to right those wrongs."
         />
+
+    <Button
+        android:id="@+id/spiderman"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/imgMovie3"
+        android:layout_below="@id/Deskription3"
+        android:text="Watch Trailer Now"
+        android:onClick="playSpidermanTrailer" />
 </RelativeLayout>
 ```
 
@@ -866,7 +939,7 @@ Film dokumenter buatan Netflix ini menyoroti rangkaian persidangan yang saat itu
         android:layout_marginStart="16dp"
         android:textSize="16sp"
         android:textColor="@color/black"
-        android:text="CEK TOKO SEBELAH"/>
+        android:text="CEK TOKO SEBELAH 2"/>
 
     <TextView
         android:id="@+id/Deskription"
@@ -875,10 +948,23 @@ Film dokumenter buatan Netflix ini menyoroti rangkaian persidangan yang saat itu
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="10dp"
         android:maxLines="5"
-        android:text="The story tells about Subrata's family's life which is disrupted when his grocery store receives a purchase offer from a large company. Director Ernest Prakasa presents typical comedic moments in Subrata and his brother's efforts to face economic challenges and changes in the surrounding environment. This film depicts an entertaining family relationship while inserting messages about traditional and modern values in business and everyday life."
+        android:textColor="@color/black"
+        android:text="The film Cek Toko Sebelah 2 continues the story of the Soleh family and their humorous conflict when they discover that the shop next door to them is about to be renovated into a hipster cafe. In his efforts to maintain a traditional shop, Soleh must face the challenges of modernization while maintaining family relationships. With a distinctive comedy flavor, this film depicts changing times and family values in a light and entertaining atmosphere."
         />
+
+    <Button
+        android:id="@+id/cektokosebelah"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/imgMovie"
+        android:layout_below="@id/Deskription"
+        android:text="Watch Trailer Now"
+        android:onClick="playCektokosebelah2Trailer"/>
+
     <ImageView
         android:id="@+id/imgMovie2"
         android:layout_width="150dp"
@@ -904,10 +990,23 @@ Film dokumenter buatan Netflix ini menyoroti rangkaian persidangan yang saat itu
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="210dp"
         android:maxLines="5"
+        android:textColor="@color/black"
         android:text="The story centers on old friends, Palm and Gink, who love each other but are afraid to express their feelings. The two had a close relationship, but when Palm confessed her feelings, Gink stated that she only saw him as a friend. The film presents Palm's emotional journey in maintaining their friendship, touching on themes of unrequited love and the complexity of sibling relationships."
         />
+
+    <Button
+        android:id="@+id/friendzone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/imgMovie"
+        android:layout_below="@id/Deskription2"
+        android:text="Watch Trailer Now"
+        android:onClick="playFriendzoneTrailer"/>
+
     <ImageView
         android:id="@+id/imgMovie3"
         android:layout_width="150dp"
@@ -924,7 +1023,7 @@ Film dokumenter buatan Netflix ini menyoroti rangkaian persidangan yang saat itu
         android:layout_marginTop="400dp"
         android:textSize="16sp"
         android:textColor="@color/black"
-        android:text="REPLY 1988"/>
+        android:text="HOSPITAL PLAYLIST"/>
 
     <TextView
         android:id="@+id/Deskription3"
@@ -933,9 +1032,21 @@ Film dokumenter buatan Netflix ini menyoroti rangkaian persidangan yang saat itu
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="420dp"
+        android:layout_marginTop="410dp"
         android:maxLines="5"
-        android:text="Tells the story of family and friendship in a neighborhood in 1988 in Seoul. The story focuses on the Sung family and a group of teenagers who grow up together, creating unforgettable memories in their daily lives. Through a story of love and friendship, Reply 1988 depicts the warmth and nostalgia of youth, building strong bonds amidst the dynamics of urban life in that era." />
+        android:textColor="@color/black"
+        android:text="The Korean drama Hospital Playlist tells the story of five doctors who are friends and work together in the same hospital. They not only lead busy professional lives in the medical world, but also overcome challenges and joys in their personal lives. With warm humor and depth of character, the series provides an emotional and realistic portrait of friendship, love, and life in a hospital." />
+
+    <Button
+        android:id="@+id/hospitalplaylist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/imgMovie"
+        android:layout_below="@id/Deskription3"
+        android:text="Watch Trailer Now"
+        android:onClick="playHospitalPlaylistTrailer"/>
 </RelativeLayout>
 ```
 
@@ -972,13 +1083,25 @@ Film dokumenter buatan Netflix ini menyoroti rangkaian persidangan yang saat itu
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="10dp"
         android:maxLines="5"
+        android:textColor="@color/black"
         android:text="Tells the story of Na Bo-ra, a student who vows to follow Baek Hyun-jin for the sake of her sick friend. However, Bo-ra falls in love with Poong Woon-ho, Hyun-jin's best friend. In the confusion of the love triangle, Bo-ra hides her feelings so as not to hurt her best friend who turns out to love Woon-ho. When Woon-ho returns to New Zealand, Bo-ra and Yeon-du arrive at the train station at the right time, allowing them to confess their feelings before going their separate ways. However, Woon-ho suddenly disappears from Bo-ra's life, leaving her heart broken.
 
 Over time, Bo-ra enters university and lives an adult life. In 2019, he received an art exhibition invitation from Joseph, Woon-ho's younger brother. Here, Bo-ra learns that Woon-ho died in an accident years ago. Joseph thanks Bo-ra for remembering his brother and reveals that Woon-ho's happiest moments were with Bo-ra. While watching the video Woon-ho made, Bo-ra reflects on the happy memories they shared.
 
 Set in 1999 and 2019, it takes the audience on Bo-ra's emotional journey full of confusion, love, friendship and loss. This film depicts the complexity of human relationships over time, with a story that touches the heart and leaves a deep impression." />
+
+    <Button
+        android:id="@+id/centurygirl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/imgMovie"
+        android:layout_below="@id/Deskription"
+        android:text="Watch Trailer Now"
+        android:onClick="playCenturygirlTrailer"/>
 
     <ImageView
         android:id="@+id/imgMovie2"
@@ -1005,10 +1128,22 @@ Set in 1999 and 2019, it takes the audience on Bo-ra's emotional journey full of
         android:layout_below="@id/tvTitle"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="12dp"
-        android:layout_marginTop="211dp"
+        android:layout_marginTop="210dp"
         android:layout_toRightOf="@id/imgMovie"
         android:maxLines="5"
+        android:textColor="@color/black"
         android:text="Tells the story of a group of high school students who band together to form a cheerleading team at their school, trying to overcome academic pressure and teenage problems. With the struggles, conflicts, and friendships that develop among the team members, they learn to overcome life's difficulties and find strength in their unity. This story presents the dynamics of school life full of enthusiasm, with a touch of comedy and warmth in experiencing adolescence." />
+
+    <Button
+        android:id="@+id/cheerup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/imgMovie"
+        android:layout_below="@id/Deskription2"
+        android:text="Watch Trailer Now"
+        android:onClick="playCheerupTrailer"/>
 
     <ImageView
         android:id="@+id/imgMovie3"
@@ -1035,15 +1170,27 @@ Set in 1999 and 2019, it takes the audience on Bo-ra's emotional journey full of
         android:layout_below="@id/tvTitle"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="409dp"
+        android:layout_marginTop="410dp"
         android:layout_toRightOf="@id/imgMovie"
         android:maxLines="5"
+        android:textColor="@color/black"
         android:text="The storyline is about the complicated relationships among a group of close friends who grow up together and face various life trials. With secrets and conflicts emerging, they must struggle to understand and accept each other, while going on a journey to find love and identity. Through a story full of intrigue and emotion, Hidden Love reveals hidden layers of relationships and shows the journey towards maturity and understanding." />
+
+    <Button
+        android:id="@+id/hiddenlove"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/imgMovie"
+        android:layout_below="@id/Deskription3"
+        android:text="Watch Trailer Now"
+        android:onClick="playHiddenloveTrailer"/>
 </RelativeLayout>
 ```
-=> Pada directory `drawable` kita bisa tambahkan gambar untuk pict dari film yang ingin kita tampilkan, dan jangan lupa untuk menambahkan icon `baseline_more_vert_24.xml` dengan cara klik kanan pada `drawable` lalu klik New, setelah itu kita pilih dan klik Vector Asset. Setelah itu kita klik clip art lalu kita pilih icon nya, jika sudah ketemu kita klik OK lalu kita klik next
+=> Pada directory `drawable` kita bisa tambahkan gambar seperti poster film yang ingin kita tampilkan, dan jangan lupa untuk menambahkan icon `baseline_more_vert_24.xml` dengan cara klik kanan pada `drawable` lalu klik New, setelah itu kita pilih dan klik Vector Asset. Setelah itu kita klik clip art lalu kita pilih icon nya, jika sudah ketemu kita klik OK lalu kita klik next. Sama halnya ketika kita ingin menambahkan menu kembali pada halaman `VideoPlayerActivity` yaitu dengan langkah-langkah yang sama seperti sebelumnya dan jangan lupa untuk menambahkan icon `baseline_arrorw_circle_left_24.xml` lalu klik OK dan kita klik next.
 
-=> Selanjutnya kita klik kanan pada `app` lalu pilih dan klik `Android Resource Directory` setelah itu kita beri nama "menu" lalu klik OK. Setelah itu kita buat Menu Resource File dengan nama `menu_tab.xml` lalu isi dengan code :
+=> Selanjutnya kita klik kanan pada `res` lalu pilih dan klik `Android Resource Directory` setelah itu kita beri nama "menu" lalu klik OK. Setelah itu kita buat Menu Resource File dengan nama `menu_tab.xml` lalu isi dengan code :
 ```
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:tools="http://schemas.android.com/tools"
@@ -1066,15 +1213,22 @@ Set in 1999 and 2019, it takes the audience on Bo-ra's emotional journey full of
 </menu>
 ```
 
+=> Sama halnya ketika ingin menambahkan code menu untuk kembali, dengan cara kita klik kanan pada directory `menu` dan buat Menu Resource File dengan nama `menu_video_player.xml` lalu isi dengan code :
+```
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/action_back"
+        android:icon="@drawable/baseline_arrow_circle_left_24"
+        android:title="Back"
+        app:showAsAction="always" />
+</menu>
+```
+
 > Hasil Run :
 
-
-
-
-
 https://github.com/syifaaurellia/fragment_test/assets/115867244/f2256ced-d878-4c9f-ac06-1cff71aadddd
-
-
 
 
 ## Selesai, Terima Kasih 
