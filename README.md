@@ -12,7 +12,7 @@ Mata Kuliah : Pemrograman Mobile 1
 ## Tugas
 ![tugas](https://github.com/syifaaurellia/fragment_test/assets/115867244/fb861b7f-9579-47f3-a830-8cc7d896afbf)
 
-> **Pada tugas kali ini saya juga akan menambahkan video di setiap film**
+> **Pada tugas kali ini saya juga akan menambahkan video trailer di setiap film**
 
 
 ## Fill in All The Code in This Project :
@@ -68,7 +68,7 @@ dependencies {
 <activity android:name=".VideoPlayerActivity" />
 ```
 
-> 3. ***java***
+> 3. ***Java***
 
 - Untuk package name bisa di sesuaikan dengan package name project kita masing-masing, disini saya melanjutkan dari package name project sebelumnya.
 
@@ -1228,7 +1228,9 @@ Set in 1999 and 2019, it takes the audience on Bo-ra's emotional journey full of
 
 > Hasil Run :
 
-https://github.com/syifaaurellia/fragment_test/assets/115867244/f2256ced-d878-4c9f-ac06-1cff71aadddd
+
+https://github.com/syifaaurellia/fragment_test/assets/115867244/730c15da-b706-40f8-94c1-4a6851a31753
+
 
 
 ## Selesai, Terima Kasih 
